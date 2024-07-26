@@ -20,6 +20,11 @@ def index():
     return '<h1>Project Server</h1>'
 
 class TenantReceipts(Resource):
+    def get(self):
+        tenant_receipts = TenantReceipt.query.all()
+        tenant_list = [tenant_receipt.to_dict() for tenant_receipt in tenant_receipts]
+        return make_response(tenant_list, 200)
+
     def post(self):
         params = request.json
         try:
@@ -39,6 +44,11 @@ api.add_resource(TenantReceipts, '/tenant_receipts')
 
 
 class TenantInfos(Resource):
+    def get(self):
+        tenant_infos = TenantInfo.query.all()
+        tenant_list = [tenant_info.to_dict() for tenant_info in tenant_infos]
+        return make_response(tenant_list, 200)
+    
     def post(self):
         params = request.json
 

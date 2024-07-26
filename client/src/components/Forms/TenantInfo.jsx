@@ -61,8 +61,53 @@ function TenantInfoForm() {
         t2signature: ''
     }
 
-    function handleSubmit(values) {
-        console.log(values)
+    function handleSubmit(values, {resetForm}) {
+        fetch('/tenant_infos', {
+            method: 'POST',
+            headers: {
+                "Content-Type": 'application/json'
+            },
+            body: JSON.stringify({
+                address: values.address,
+                apartment: values.apartment,
+                t1Name: values.t1Name,
+                t1DOB: values.t1DOB,
+                t1cellNumber: parseInt(values.t1cellNumber, 10),
+                t1email: values.t1email,
+                t1employer: values.t1employer,
+                t1workAddress: values.workAddress,
+                t1workNumber: parseInt(values.t1workNumber, 10),
+                t2Name: values.t2Name,
+                t2DOB: values.t2DOB,
+                t2cellNumber: parseInt(values.t2cellNumber, 10),
+                t2email: values.t2email,
+                t2employer: values.t2employer,
+                t2workAddress: values.t2workAddress,
+                t2workNumber: parseInt(values.t2workNumber, 10),
+                o1name: values.o1name,
+                o1age: parseInt(values.o1age, 10),
+                o2name: values.o2name,
+                o2age: parseInt(values.o2age, 10),
+                o3name: values.o3name,
+                o3age: parseInt(values.o3age, 10),
+                o4name: values.o4name,
+                o4age: parseInt(values.o4age, 10),
+                o5name: values.o5name,
+                o5age: parseInt(values.o5age, 10),
+                emergencyName: values.emergencyName,
+                emergencyPhone: parseInt(values.emergencyPhone, 10),
+                emergencyAddress: values.emergencyAddress,
+                t1signature: values.t1signature,
+                t2signature: values.t2signature
+            
+            })
+        }).then(response => {
+            if (response.ok) {
+                resetForm()
+            }
+        }).catch((error) => {
+            console.log(error)
+        })
     }
 
     return (
@@ -77,7 +122,7 @@ function TenantInfoForm() {
                 >
                     {({ handleSubmit, values, handleChange }) => (
                         <form className='form' onSubmit={handleSubmit}>
-                            <label htmlFor='address'>Address:</label>
+                            <label htmlFor='address'>Address *</label>
                             <Field
                                 id="address"
                                 name="address"
@@ -88,7 +133,7 @@ function TenantInfoForm() {
                             />
                             <ErrorMessage name="address" component="div" className="error"/>
 
-                            <label htmlFor='apartment'>Apartment:</label>
+                            <label htmlFor='apartment'>Apartment *</label>
                             <Field
                                 id='apartment'
                                 name='apartment'
@@ -99,7 +144,7 @@ function TenantInfoForm() {
                             />
                             <ErrorMessage name="apartment" component="div" className="error"/>
 
-                            <label htmlFor='t1Name'>Tenant 1 Name:</label>
+                            <label htmlFor='t1Name'>Tenant 1 Name *</label>
                             <Field
                                 id='t1Name'
                                 name='t1Name'
@@ -110,7 +155,7 @@ function TenantInfoForm() {
                             />
                             <ErrorMessage name="t1Name" component="div" className="error"/>
 
-                            <label htmlFor='t1DOB'>Tenant 1 Date of Birth:</label>
+                            <label htmlFor='t1DOB'>Tenant 1 Date of Birth *</label>
                             <Field
                                 id='t1DOB'
                                 name='t1DOB'
@@ -121,18 +166,18 @@ function TenantInfoForm() {
                             />
                             <ErrorMessage name="t1DOB" component="div" className="error"/>
 
-                            <label htmlFor='t1cellNumber'>Tenant 1 Cell Number:</label>
+                            <label htmlFor='t1cellNumber'>Tenant 1 Cell Number *</label>
                             <Field
                                 id='t1cellNumber'
                                 name='t1cellNumber'
-                                type='tel'
+                                type='number'
                                 placeholder='Tenant 1 Cell Number'
                                 value={values.t1cellNumber}
                                 onChange={handleChange}
                             />
                             <ErrorMessage name="t1cellNumber" component="div" className="error"/>
 
-                            <label htmlFor='t1email'>Tenant 1 Email:</label>
+                            <label htmlFor='t1email'>Tenant 1 Email *</label>
                             <Field
                                 id='t1email'
                                 name='t1email'
@@ -143,7 +188,7 @@ function TenantInfoForm() {
                             />
                             <ErrorMessage name="t1email" component="div" className="error"/>
 
-                            <label htmlFor='t1employer'>Tenant 1 Employer:</label>
+                            <label htmlFor='t1employer'>Tenant 1 Employer</label>
                             <Field
                                 id='t1employer'
                                 name='t1employer'
@@ -154,7 +199,7 @@ function TenantInfoForm() {
                             />
                             <ErrorMessage name="t1employer" component="div" className="error"/>
 
-                            <label htmlFor='t1workAddress'>Tenant 1 Work Address:</label>
+                            <label htmlFor='t1workAddress'>Tenant 1 Work Address</label>
                             <Field
                                 id='t1workAddress'
                                 name='t1workAddress'
@@ -165,18 +210,18 @@ function TenantInfoForm() {
                             />
                             <ErrorMessage name="t1workAddress" component="div" className="error"/>
 
-                            <label htmlFor='t1workNumber'>Tenant 1 Work Number:</label>
+                            <label htmlFor='t1workNumber'>Tenant 1 Work Number</label>
                             <Field
                                 id='t1workNumber'
                                 name='t1workNumber'
-                                type='tel'
+                                type='number'
                                 placeholder='Tenant 1 Work Number'
                                 value={values.t1workNumber}
                                 onChange={handleChange}
                             />
                             <ErrorMessage name="t1workNumber" component="div" className="error"/>
 
-                            <label htmlFor='t2Name'>Tenant 2 Name:</label>
+                            <label htmlFor='t2Name'>Tenant 2 Name</label>
                             <Field
                                 id='t2Name'
                                 name='t2Name'
@@ -187,7 +232,7 @@ function TenantInfoForm() {
                             />
                             <ErrorMessage name="t2Name" component="div" className="error"/>
 
-                            <label htmlFor='t2DOB'>Tenant 2 Date of Birth:</label>
+                            <label htmlFor='t2DOB'>Tenant 2 Date of Birth</label>
                             <Field
                                 id='t2DOB'
                                 name='t2DOB'
@@ -198,18 +243,18 @@ function TenantInfoForm() {
                             />
                             <ErrorMessage name="t2DOB" component="div" className="error"/>
 
-                            <label htmlFor='t2cellNumber'>Tenant 2 Cell Number:</label>
+                            <label htmlFor='t2cellNumber'>Tenant 2 Cell Number</label>
                             <Field
                                 id='t2cellNumber'
                                 name='t2cellNumber'
-                                type='tel'
+                                type='number'
                                 placeholder='Tenant 2 Cell Number'
                                 value={values.t2cellNumber}
                                 onChange={handleChange}
                             />
                             <ErrorMessage name="t2cellNumber" component="div" className="error"/>
 
-                            <label htmlFor='t2email'>Tenant 2 Email:</label>
+                            <label htmlFor='t2email'>Tenant 2 Email</label>
                             <Field
                                 id='t2email'
                                 name='t2email'
@@ -220,7 +265,7 @@ function TenantInfoForm() {
                             />
                             <ErrorMessage name="t2email" component="div" className="error"/>
 
-                            <label htmlFor='t2employer'>Tenant 2 Employer:</label>
+                            <label htmlFor='t2employer'>Tenant 2 Employer</label>
                             <Field
                                 id='t2employer'
                                 name='t2employer'
@@ -231,7 +276,7 @@ function TenantInfoForm() {
                             />
                             <ErrorMessage name="t2employer" component="div" className="error"/>
 
-                            <label htmlFor='t2workAddress'>Tenant 2 Work Address:</label>
+                            <label htmlFor='t2workAddress'>Tenant 2 Work Address</label>
                             <Field
                                 id='t2workAddress'
                                 name='t2workAddress'
@@ -242,18 +287,18 @@ function TenantInfoForm() {
                             />
                             <ErrorMessage name="t2workAddress" component="div" className="error"/>
 
-                            <label htmlFor='t2workNumber'>Tenant 2 Work Number:</label>
+                            <label htmlFor='t2workNumber'>Tenant 2 Work Number</label>
                             <Field
                                 id='t2workNumber'
                                 name='t2workNumber'
-                                type='tel'
+                                type='number'
                                 placeholder='Tenant 2 Work Number'
                                 value={values.t2workNumber}
                                 onChange={handleChange}
                             />
                             <ErrorMessage name="t2workNumber" component="div" className="error"/>
 
-                            <label htmlFor='o1name'>Occupant 1 Name:</label>
+                            <label htmlFor='o1name'>Occupant 1 Name</label>
                             <Field
                                 id='o1name'
                                 name='o1name'
@@ -264,7 +309,7 @@ function TenantInfoForm() {
                             />
                             <ErrorMessage name="o1name" component="div" className="error"/>
 
-                            <label htmlFor='o1age'>Occupant 1 Age:</label>
+                            <label htmlFor='o1age'>Occupant 1 Age</label>
                             <Field
                                 id='o1age'
                                 name='o1age'
@@ -275,7 +320,7 @@ function TenantInfoForm() {
                             />
                             <ErrorMessage name="o1age" component="div" className="error"/>
 
-                            <label htmlFor='o2name'>Occupant 2 Name:</label>
+                            <label htmlFor='o2name'>Occupant 2 Name</label>
                             <Field
                                 id='o2name'
                                 name='o2name'
@@ -286,7 +331,7 @@ function TenantInfoForm() {
                             />
                             <ErrorMessage name="o2name" component="div" className="error"/>
 
-                            <label htmlFor='o2age'>Occupant 2 Age:</label>
+                            <label htmlFor='o2age'>Occupant 2 Age</label>
                             <Field
                                 id='o2age'
                                 name='o2age'
@@ -297,7 +342,7 @@ function TenantInfoForm() {
                             />
                             <ErrorMessage name="o2age" component="div" className="error"/>
 
-                            <label htmlFor='o3name'>Occupant 3 Name:</label>
+                            <label htmlFor='o3name'>Occupant 3 Name</label>
                             <Field
                                 id='o3name'
                                 name='o3name'
@@ -308,7 +353,7 @@ function TenantInfoForm() {
                             />
                             <ErrorMessage name="o3name" component="div" className="error"/>
 
-                            <label htmlFor='o3age'>Occupant 3 Age:</label>
+                            <label htmlFor='o3age'>Occupant 3 Age</label>
                             <Field
                                 id='o3age'
                                 name='o3age'
@@ -319,7 +364,7 @@ function TenantInfoForm() {
                             />
                             <ErrorMessage name="o3age" component="div" className="error"/>
 
-                            <label htmlFor='o4name'>Occupant 4 Name:</label>
+                            <label htmlFor='o4name'>Occupant 4 Name</label>
                             <Field
                                 id='o4name'
                                 name='o4name'
@@ -330,7 +375,7 @@ function TenantInfoForm() {
                             />
                             <ErrorMessage name="o4name" component="div" className="error"/>
 
-                            <label htmlFor='o4age'>Occupant 4 Age:</label>
+                            <label htmlFor='o4age'>Occupant 4 Age</label>
                             <Field
                                 id='o4age'
                                 name='o4age'
@@ -341,7 +386,7 @@ function TenantInfoForm() {
                             />
                             <ErrorMessage name="o4age" component="div" className="error"/>
 
-                            <label htmlFor='o5name'>Occupant 5 Name:</label>
+                            <label htmlFor='o5name'>Occupant 5 Name</label>
                             <Field
                                 id='o5name'
                                 name='o5name'
@@ -352,7 +397,7 @@ function TenantInfoForm() {
                             />
                             <ErrorMessage name="o5name" component="div" className="error"/>
 
-                            <label htmlFor='o5age'>Occupant 5 Age:</label>
+                            <label htmlFor='o5age'>Occupant 5 Age</label>
                             <Field
                                 id='o5age'
                                 name='o5age'
@@ -363,7 +408,7 @@ function TenantInfoForm() {
                             />
                             <ErrorMessage name="o5age" component="div" className="error"/>
 
-                            <label htmlFor='emergencyName'>Emergency Contact Name:</label>
+                            <label htmlFor='emergencyName'>Emergency Contact Name *</label>
                             <Field
                                 id='emergencyName'
                                 name='emergencyName'
@@ -374,18 +419,18 @@ function TenantInfoForm() {
                             />
                             <ErrorMessage name="emergencyName" component="div" className="error"/>
 
-                            <label htmlFor='emergencyPhone'>Emergency Contact Phone:</label>
+                            <label htmlFor='emergencyPhone'>Emergency Contact Phone *</label>
                             <Field
                                 id='emergencyPhone'
                                 name='emergencyPhone'
-                                type='tel'
+                                type='number'
                                 placeholder='Emergency Contact Phone'
                                 value={values.emergencyPhone}
                                 onChange={handleChange}
                             />
                             <ErrorMessage name="emergencyPhone" component="div" className="error"/>
 
-                            <label htmlFor='emergencyAddress'>Emergency Contact Address:</label>
+                            <label htmlFor='emergencyAddress'>Emergency Contact Address *</label>
                             <Field
                                 id='emergencyAddress'
                                 name='emergencyAddress'
@@ -396,7 +441,7 @@ function TenantInfoForm() {
                             />
                             <ErrorMessage name="emergencyAddress" component="div" className="error"/>
 
-                            <label htmlFor='t1signature'>Tenant 1 Signature:</label>
+                            <label htmlFor='t1signature'>Tenant 1 Signature *</label>
                             <Field
                                 id='t1signature'
                                 name='t1signature'
@@ -407,7 +452,7 @@ function TenantInfoForm() {
                             />
                             <ErrorMessage name="t1signature" component="div" className="error"/>
 
-                            <label htmlFor='t2signature'>Tenant 2 Signature:</label>
+                            <label htmlFor='t2signature'>Tenant 2 Signature</label>
                             <Field
                                 id='t2signature'
                                 name='t2signature'
@@ -418,7 +463,7 @@ function TenantInfoForm() {
                             />
                             <ErrorMessage name="t2signature" component="div" className="error"/>
 
-                            <button type="submit">Submit</button>
+                            <button type="submit" className='button'>Submit</button>
                         </form>
                     )}
                 </Formik>

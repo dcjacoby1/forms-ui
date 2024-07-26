@@ -17,8 +17,25 @@ function TenantReceipts() {
         subtotal: ''
     }
 
-    function handleSubmit(values) {
-        console.log(values)
+    function handleSubmit(values, { resetForm }) {
+        fetch('/tenant_receipts', {
+            method: 'POST',
+            headers: {
+                "Content-Type": 'application/json'
+            },
+            body: JSON.stringify({
+                address: values.address,
+            item: parseInt(values.item, 10), 
+            amount: parseFloat(values.amount), 
+            subtotal: parseFloat(values.subtotal)
+            })
+        }).then(response => {
+            if (response.ok) {
+                resetForm()
+            }
+        }).catch((error) => {
+            console.log(error)
+        })
     }
 
     return(
@@ -33,11 +50,11 @@ function TenantReceipts() {
             >
             {({ handleSubmit, values, handleChange }) => (
                 <form className='form' onSubmit={handleSubmit}>
-                    <label htmlFor='address'>Address:</label>
+                    <label htmlFor='address'>Address *</label>
                     <Field
                         id="address"
                         name="address"
-                        type='address'
+                        type='text'
                         placeholder="address"
                         required
                         value={values.address}
@@ -47,11 +64,11 @@ function TenantReceipts() {
                     <ErrorMessage name="address" component="div" className="error"/>
                     
 
-                    <label htmlFor='item'>Item:</label>
+                    <label htmlFor='item'>Item *</label>
                     <Field
                         id='item'
                         name='item'
-                        type='item'
+                        type='number'
                         placeholder='item'
                         required
                         value={values.item}
@@ -60,26 +77,28 @@ function TenantReceipts() {
 
                     <ErrorMessage name="item" component="div" className="error"/>
 
-                    <label htmlFor='amount'>Amount:</label>
+                    <label htmlFor='amount'>Amount *</label>
                     <Field
                         id='amount'
                         name='amount'
-                        type='amount'
+                        type='number'
                         placeholder='amount'
                         required
+                        step='any'
                         value={values.amount}
                         onChange={handleChange}
                     />
 
                     <ErrorMessage name="amount" component="div" className="error"/>
 
-                    <label htmlFor='subtotal'>Subtotal:</label>
+                    <label htmlFor='subtotal'>Subtotal *</label>
                     <Field
                         id='subtotal'
                         name='subtotal'
-                        type='subtotal'
+                        type='number'
                         placeholder='subtotal'
                         required
+                        step='any'
                         value={values.subtotal}
                         onChange={handleChange}
                     />
@@ -89,7 +108,8 @@ function TenantReceipts() {
                     
 
                     
-                    <button onClick={handleSubmit}>Submit</button>
+                    <button type="submit" onClick={handleSubmit}>Submit</button>
+                    
                 </form>
             )}
             </Formik>

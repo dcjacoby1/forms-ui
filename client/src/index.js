@@ -6,6 +6,8 @@ import Forms from "./components/Forms";
 import History from "./components/History";
 import TenantReceipts from "./components/Forms/TenantReceipts";
 import TenantInfo from "./components/Forms/TenantInfo";
+import TRinfo from "./components/Historys/TRinfo";
+import TIinfo from "./components/Historys/TIinfo";
 
 
 const routes = [
@@ -33,7 +35,21 @@ const routes = [
             },
             {
                 path: "/history",
-                element: <History />
+                element: <History />,
+                children: [
+                  {
+                      index: true,
+                      element: <TRinfo/>,
+                    },
+                  {
+                    path: 'tr-info',
+                    element: <TRinfo />,
+                  },
+                  {
+                    path: 'ti-info',
+                    element: <TIinfo/>,
+                  },
+                ]
             }
         ]
     }

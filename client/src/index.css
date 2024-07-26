@@ -94,4 +94,41 @@
   color: #007BFF;
 }
 
+#container {
+  display: flex;
+  justify-content: center; 
+  margin-top: 2rem; 
+}
 
+.order-tile {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: row;
+  border: 2px solid #b7deff;
+  width: 80%;
+  padding: 1.5rem;
+  border-radius: 9px;
+  justify-content: space-between;
+  background-color: #e8e8e8;
+}
+
+.order-tile > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; 
+  margin-right: 10rem;
+}
+
+.order-tile h3 {
+  font-size: 25px;
+}
+.order-tile p {
+  font-size: 20px;
+}
+
+.button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
